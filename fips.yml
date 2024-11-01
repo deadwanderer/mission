@@ -2,6 +2,15 @@
 # mission
 #
 ---
+imports:
+  sokol:
+    git: https://github.com/floooh/sokol
+  sokol-tools-bin:
+    git: https://github.com/floooh/sokol-tools-bin
+  fips-cimgui:
+    git: https://github.com/fips-libs/fips-cimgui.git
+  fips-utils:
+    git: https://github.com/fips-libs/fips-utils
 #   imports:
 #       PROJ-NAME:
 #           git: GIT-URL
