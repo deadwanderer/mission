@@ -2,6 +2,7 @@
 #define RENDER_H
 
 #include "core.h"
+#include <sokol_gfx.h>
 
 typedef struct render_settings_t {
   int render_w, render_h;
@@ -21,7 +22,7 @@ typedef struct render_settings_t {
 
 typedef struct bitmap_font_t {
   unsigned w, h, cw, ch;
-  resource_handle_t texture;
+  sg_image texture;
 } bitmap_font_t;
 
 extern v3 g_debug_colors[6];
@@ -130,14 +131,13 @@ typedef struct render_api_i render_api_i;
 struct render_api_i {
   void (*get_resolution)(int* w, int* h);
 
-  void (*describe_texture)(resource_handle_t handle, texture_desc_t* desc);
+  void (*describe_texture)(sg_image handle, texture_desc_t* desc);
 
-  resource_handle_t (*reserve_texture)(void);
-  void (*populate_texture)(resource_handle_t handle,
-                           const upload_texture_t* params);
+  sg_image (*reserve_texture)(void);
+  void (*populate_texture)(sg_image handle, const upload_texture_t* params);
 
-  resource_handle_t (*upload_texture)(const upload_texture_t* params);
-  void (*destroy_texture)(resource_handle_t texture);
+  sg_image (*upload_texture)(const upload_texture_t* params);
+  void (*destroy_texture)(sg_image texture);
 
   // resource_handle_t (*upload_model)(const upload_model_t* params);
   // void (*destroy_model)(resource_handle_t model);
@@ -202,7 +202,7 @@ typedef struct r_immediate_params_t {
   r_blend_mode_t blend_mode;
 
   rect2 clip_rect;
-  resource_handle_t texture;
+  sg_image texture;
 
   bool depth_test;
   f32 depth_bias;

@@ -3,6 +3,7 @@
 
 #include "api_types.h"
 #include "string.h"
+#include <sokol_gfx.h>
 
 // Streaming asset API
 
@@ -43,18 +44,18 @@ typedef struct image_t {
   u32 channel_count;
   void* pixels;
 
-  resource_handle_t gpu;
+  sg_image gpu;
 } image_t;
 
-typedef struct cubemap_t {
-  u32 w;
-  u32 h;
-  u32 pitch;
-  u32 channel_count;
-  u32* pixels[6];
+// typedef struct cubemap_t {
+//   u32 w;
+//   u32 h;
+//   u32 pitch;
+//   u32 channel_count;
+//   u32* pixels[6];
 
-  resource_handle_t gpu;
-} cubemap_t;
+//   resource_handle_t gpu;
+// } cubemap_t;
 
 typedef struct waveform_t {
   u32 channel_count;
@@ -93,7 +94,8 @@ image_t load_image_from_memory(arena_t* arena,
                                unsigned nchannels);
 image_t load_image_from_disk(arena_t* arena, string_t path, unsigned nchannels);
 
-bool split_image_into_cubemap_faces(const image_t* source, cubemap_t* cubemap);
+// bool split_image_into_cubemap_faces(const image_t* source, cubemap_t*
+// cubemap);
 
 #define WAVE_SAMPLE_RATE 44100
 

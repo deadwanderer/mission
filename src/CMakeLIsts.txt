@@ -8,6 +8,7 @@ configure_file(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/src/config.h)
     asset.c
     bulk_data.c
     draw.c
+    game.c
     hashtable.c
     input.c 
     math.c 
@@ -19,6 +20,7 @@ configure_file(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/src/config.h)
     ui.c 
     utility.c
   )
+  sokol_shader(shaders.glsl ${slang})
   if (FIPS_MSVC)
     set_target_properties(mission PROPERTIES COMPILE_FLAGS /W3)
   endif()

@@ -10,6 +10,7 @@ typedef struct draw_state_t {
 } draw_state_t;
 
 void draw_init(draw_state_t* state);
+render_api_i* draw_get_api(void);
 void draw_shutdown(draw_state_t* state);
 void draw_begin(draw_state_t* state);
 void draw_render_list(draw_state_t* state, r_list_t* list);

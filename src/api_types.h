@@ -220,6 +220,7 @@ typedef union resource_handle_t {
 #define NULL_RESOURCE_HANDLE ((resource_handle_t){0, 0})
 #define RESOURCE_HANDLE_VALID(x) ((x).index != 0)
 #define RESOURCE_HANDLES_EQUAL(a, b) ((a).value == (b).value)
+#define SOKOL_HANDLES_EQUAL(a, b) ((a).id == (b).id)
 
 typedef struct node_t node_t;
 struct node_t {

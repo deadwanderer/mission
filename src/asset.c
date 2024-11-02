@@ -108,7 +108,7 @@ static void asset_job(job_context_t* context, void* userdata) {
 
       switch (asset->kind) {
         case ASSET_KIND_IMAGE: {
-          resource_handle_t handle = asset->image.gpu;
+          sg_image handle = asset->image.gpu;
 
           asset->image =
               load_image_from_disk(arena, STRING_FROM_STORAGE(asset->path), 4);
@@ -325,50 +325,51 @@ image_t load_image_from_disk(arena_t* arena,
   return result;
 }
 
-bool split_image_into_cubemap_faces(const image_t* source, cubemap_t* cubemap) {
-  /*      ------
-   *      | +y |
-   * ---------------------
-   * | -x | +z | +x | +z |
-   * ---------------------
-   *      | -y |
-   *      ------
-   *
-   * faces[0] = +x
-   * faces[1] = -x
-   * faces[2] = +y
-   * faces[3] = -y
-   * faces[4] = +z
-   * faces[5] = -z
-   */
+// bool split_image_into_cubemap_faces(const image_t* source, cubemap_t*
+// cubemap) {
+//   /*      ------
+//    *      | +y |
+//    * ---------------------
+//    * | -x | +z | +x | +z |
+//    * ---------------------
+//    *      | -y |
+//    *      ------
+//    *
+//    * faces[0] = +x
+//    * faces[1] = -x
+//    * faces[2] = +y
+//    * faces[3] = -y
+//    * faces[4] = +z
+//    * faces[5] = -z
+//    */
 
-  unsigned w = source->w / 4;
-  unsigned h = source->h / 3;
+//   unsigned w = source->w / 4;
+//   unsigned h = source->h / 3;
 
-  if (source->w % w != 0 || source->h % h != 0) {
-    return false;
-  }
+//   if (source->w % w != 0 || source->h % h != 0) {
+//     return false;
+//   }
 
-  v2i face_to_index[] = {
-      {2, 1}, {0, 1}, {1, 0}, {1, 2}, {1, 1}, {1, 3},
-  };
+//   v2i face_to_index[] = {
+//       {2, 1}, {0, 1}, {1, 0}, {1, 2}, {1, 1}, {1, 3},
+//   };
 
-  u32* pixels = source->pixels;
+//   u32* pixels = source->pixels;
 
-  cubemap->w = w;
-  cubemap->h = h;
-  cubemap->pitch = source->pitch;
+//   cubemap->w = w;
+//   cubemap->h = h;
+//   cubemap->pitch = source->pitch;
 
-  for (size_t i = 0; i < 6; i++) {
-    v2i index = face_to_index[i];
-    int x_offset = w * index.x;
-    int y_offset = h * index.y;
+//   for (size_t i = 0; i < 6; i++) {
+//     v2i index = face_to_index[i];
+//     int x_offset = w * index.x;
+//     int y_offset = h * index.y;
 
-    cubemap->pixels[i] = pixels + y_offset * source->pitch + x_offset;
-  }
+//     cubemap->pixels[i] = pixels + y_offset * source->pitch + x_offset;
+//   }
 
-  return true;
-}
+//   return true;
+// }
 
 //
 //

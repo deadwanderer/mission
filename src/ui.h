@@ -3,6 +3,8 @@
 
 #include "api_types.h"
 #include "string.h"
+#include "assert.h"
+#include "math.h"
 
 typedef struct ui_id_t {
   u64 value;

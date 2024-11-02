@@ -165,7 +165,7 @@ void r_push_text(struct r_immediate_draw_t* draw_call,
                  v2 p,
                  v4 color,
                  string_t string) {
-  ASSERT(RESOURCE_HANDLES_EQUAL(draw_call->params.texture, font->texture));
+  ASSERT(SOKOL_HANDLES_EQUAL(draw_call->params.texture, font->texture));
 
   ASSERT(font->w / font->cw == 16);
   ASSERT(font->w % font->cw == 0);
