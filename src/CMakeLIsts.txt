@@ -2,10 +2,27 @@ add_definitions(-D${sokol_backend})
 
 fips_begin_app(mission windowed)
 configure_file(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/src/config.h)
-  fips_files(main.c)
+  fips_files(
+    main.c     
+    arena.c
+    asset.c
+    bulk_data.c
+    draw.c
+    hashtable.c
+    input.c 
+    math.c 
+    os.c 
+    render.c 
+    render_helpers.c
+    string.c 
+    tls.c 
+    ui.c 
+    utility.c
+  )
   if (FIPS_MSVC)
     set_target_properties(mission PROPERTIES COMPILE_FLAGS /W3)
   endif()
   fips_libs(sokol cdbgui)
 fips_end_app()
 target_compile_definitions(mission PRIVATE USE_DBG_UI)
+target_compile_definitions(mission PUBLIC SINGLE_TRANSLATION_UNIT_BUILD)

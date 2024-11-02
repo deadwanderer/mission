@@ -1,39 +1,33 @@
-#include <sokol_gfx.h>
 #include <sokol_app.h>
 #include <sokol_time.h>
 #include <sokol_fetch.h>
 #include <sokol_log.h>
-#include <sokol_glue.h>
 #include <cdbgui/cdbgui.h>
 
 #include "config.h"
+#include "core.h"
+#include "draw.h"
+#include "render.h"
+#include "ui.h"
 
 static struct {
-  sg_pass_action pass_action;
+  arena_t frame_arena;
+  r_list_t render_list;
+  draw_state_t draw_state;
 } state;
 
 static void init(void) {
-  sg_setup(&(sg_desc){
-      .environment = sglue_environment(),
-      .logger.func = slog_func,
-  });
-  __cdbgui_setup(sapp_sample_count());
-  state.pass_action =
-      (sg_pass_action){.colors[0] = {.load_action = SG_LOADACTION_CLEAR,
-                                     .clear_value = {0.1f, 0.3f, 0.2f}}};
+  draw_init(&state.draw_state);
 }
 
 static void frame(void) {
-  sg_begin_pass(
-      &(sg_pass){.action = state.pass_action, .swapchain = sglue_swapchain()});
-  __cdbgui_draw();
-  sg_end_pass();
-  sg_commit();
+  draw_begin(&state.draw_state);
+  draw_render_list(&state.draw_state, &state.render_list);
+  draw_end(&state.draw_state);
 }
 
 static void cleanup(void) {
-  __cdbgui_shutdown();
-  sg_shutdown();
+  draw_shutdown(&state.draw_state);
 }
 
 static void event(const sapp_event* e) {

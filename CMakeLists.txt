@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.21)
 project(mission VERSION 0.0.1)
 configure_file(${CMAKE_SOURCE_DIR}/config.h.in src/config.h)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 if (CMAKE_SYSTEM_NAME STREQUAL "WindowsStore")
     set(CMAKE_CXX_STANDARD 17)
 else()
